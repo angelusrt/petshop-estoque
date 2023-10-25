@@ -1,4 +1,4 @@
-package petshop_estoque.model;
+package com.mycompany.app.model;
 
 public class Produto {
     private int id;

@@ -1,8 +1,7 @@
-package petshop_estoque.controller;
+package com.mycompany.app.controller;
 
-import petshop_estoque.model.Categoria;
-import petshop_estoque.model.Produto;
-
+import com.mycompany.app.model.Categoria;
+import com.mycompany.app.model.Produto;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,7 +21,7 @@ public class Estoque {
             String nome = scanner.nextLine();
             System.out.print("Quantidade: ");
             int quantidade = Integer.parseInt(scanner.nextLine());
-            System.out.print("Tipo: ");
+            System.out.print("Tipo (REMEDIO, RACAO, BRINQUEDOS, MISC): ");
             Categoria tipo = Categoria.valueOf(scanner.nextLine());
             System.out.print("Fornecedor: ");
             String fornecedor = scanner.nextLine();
@@ -63,7 +62,7 @@ public class Estoque {
                     produto.setQuantidade(quant);
                     break;
                 case 2:
-                    System.out.print("Tipo: ");
+                    System.out.print("Tipo (REMEDIO, RACAO, BRINQUEDOS, MISC): ");
                     Categoria tipo = Categoria.valueOf(scanner.nextLine());
                     produto.setTipo(tipo);
                     break;
@@ -89,8 +88,7 @@ public class Estoque {
         try {
             Produto produto = this.produtos.get(id);
             System.out.printf("Produto: \n\t%s\n\tQuantidade: %d,\n\tTipo: %s,\n\tFornecedor: %s,\n\tPreço: %.2f \n",
-                    produto.getNome(), produto.getQuantidade(), produto.getTipo(), produto.getFornecedor(),
-                    produto.getPreco());
+                    produto.getNome(), produto.getQuantidade(), produto.getTipo(), produto.getFornecedor(), produto.getPreco());
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Produto não encontrado.");
         }
@@ -106,6 +104,8 @@ public class Estoque {
     }
 
     public void verEstoque() {
-        produtos.forEach(produto -> System.out.println("produto: " + produto.toString()));
+        for (Produto produto : produtos) {
+            System.out.println("produto: " + produto.toString());
+        }
     }
 }

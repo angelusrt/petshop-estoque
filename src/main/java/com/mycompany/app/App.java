@@ -1,8 +1,7 @@
-package petshop_estoque;
-
-import petshop_estoque.controller.Estoque;
+package com.mycompany.app;
 
 import java.util.Scanner;
+import com.mycompany.app.controller.Estoque;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -26,7 +25,7 @@ public class App {
                         break;
                     case 2:
                         System.out.print("id: ");
-                        var id = in.nextInt() - 1;
+                        int id = in.nextInt() - 1;
                         estoque.editarProduto(id);
                         break;
                     case 3:
