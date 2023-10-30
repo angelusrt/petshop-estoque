@@ -8,6 +8,8 @@ public class App {
         try {
             Scanner in = new Scanner(System.in);
             Estoque estoque = new Estoque();
+            estoque.conectar();
+
             boolean loop = true;
             while (loop) {
                 System.out.println("Escolha uma opção:");
@@ -44,6 +46,7 @@ public class App {
                     case 6:
                         loop = false;
                         in.close();
+                        estoque.fechar();
                         break;
                 }
             }

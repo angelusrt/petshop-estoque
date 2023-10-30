@@ -2,44 +2,46 @@ package com.mycompany.app.controller;
 
 import com.mycompany.app.model.Categoria;
 import com.mycompany.app.model.Produto;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Estoque {
-    private ArrayList<Produto> produtos;
-
-    private int pos = -1;
+public class Estoque extends Conector{
     Scanner scanner = new Scanner(System.in);
-
-    public Estoque() {
-        this.produtos = new ArrayList<Produto>();
-    }
 
     public void adicionarProduto() {
         try {
+            PreparedStatement addProd = this.conn.prepareStatement(
+                "insert into produtos (nome, quant, tipo, forn, preco) values (?, ?, ?, ?, ?)");
+
             System.out.print("Nome: ");
-            String nome = scanner.nextLine();
+            addProd.setString(1, scanner.nextLine());
             System.out.print("Quantidade: ");
-            int quantidade = Integer.parseInt(scanner.nextLine());
+            addProd.setInt(2, Integer.parseInt(scanner.nextLine()));
             System.out.print("Tipo (REMEDIO, RACAO, BRINQUEDOS, MISC): ");
-            Categoria tipo = Categoria.valueOf(scanner.nextLine());
+            addProd.setInt(3, Categoria.valueOf(scanner.nextLine()));
             System.out.print("Fornecedor: ");
-            String fornecedor = scanner.nextLine();
+            addProd.setString(4, scanner.nextLine());
             System.out.print("Preço: ");
-            float preco = Float.parseFloat((scanner.nextLine()));
-            Produto produto = new Produto(nome, quantidade, tipo, fornecedor, preco);
-            this.produtos.add(produto);
-        } catch (NumberFormatException e) {
+            addProd.setFloat(5, Float.parseFloat((scanner.nextLine())));
+
+            addProd.execute();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         System.out.println("Produto adicionado com sucesso.");
-        pos++;
-        System.out.println(produtos.get(pos));
     }
 
     public void editarProduto(int id) {
         try {
-            Produto produto = this.produtos.get(id);
+            PreparedStatement editProd = this.conn.prepareStatement(
+                "update produtos set ? where id = ?");
+            editProd.setInt(2, id);
+
             System.out.println("Escolha uma opção:");
             System.out.println("0 - Editar nome");
             System.out.println("1 - Editar quantidade");
@@ -52,48 +54,48 @@ public class Estoque {
             switch (escolha) {
                 case 0:
                     System.out.print("Nome: ");
-                    String novoNome = scanner.nextLine();
-                    produto.setNome(novoNome);
+                    editProd.setString(0, "nome="+scanner.nextLine());
                     break;
-
                 case 1:
                     System.out.print("Quantidade: ");
-                    int quant = Integer.parseInt(scanner.nextLine());
-                    produto.setQuantidade(quant);
+                    editProd.setString(0, "quant="+Integer.parseInt(scanner.nextLine()));
                     break;
                 case 2:
                     System.out.print("Tipo (REMEDIO, RACAO, BRINQUEDOS, MISC): ");
-                    Categoria tipo = Categoria.valueOf(scanner.nextLine());
-                    produto.setTipo(tipo);
+                    editProd.setString(0, "tipo="+Categoria.valueOf(scanner.nextLine()));
                     break;
                 case 3:
                     System.out.print("Fornecedor: ");
-                    String fornecedor = scanner.nextLine();
-                    produto.setFornecedor(fornecedor);
+                    editProd.setString(0, "forn="+scanner.nextLine());
                     break;
                 case 4:
                     System.out.print("Preço: ");
-                    float preco = scanner.nextFloat();
-                    produto.setPreco(preco);
+                    editProd.setString(0, "preco="+scanner.nextFloat());
                     break;
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Produto não encontrado.");
+        } catch (SQLException e) {
+            System.out.println("Erro de Conexão.");
         }
     }
 
     public void verProduto(int id) {
         try {
-            Produto produto = this.produtos.get(id);
+            PreparedStatement verProd = this.conn.prepareStatement("select produtos where id = ?");
+            verProd.setInt(1, id);
+            ResultSet prod = verProd.executeQuery();
+
             System.out.printf("Produto: \n\t%s\n\tQuantidade: %d,\n\tTipo: %s,\n\tFornecedor: %s,\n\tPreço: %.2f \n",
-                    produto.getNome(), produto.getQuantidade(), produto.getTipo(), produto.getFornecedor(), produto.getPreco());
+                    prod.nome, prod.quant, prod.tipo, prod.forn, prod.preco);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Produto não encontrado.");
         }
     }
 
+    /*
     public void deletarProduto(int id) {
         try {
             Produto produtoEncontrado = produtos.get(id);
@@ -108,4 +110,5 @@ public class Estoque {
             System.out.println("produto: " + produto.toString());
         }
     }
+    */
 }

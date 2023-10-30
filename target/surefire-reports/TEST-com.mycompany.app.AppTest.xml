@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.mycompany.app.AppTest" time="0.053" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.mycompany.app.AppTest" time="0.081" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/media/angel/DataHDD/Back/petshop_estoque/target/test-classes:/media/angel/DataHDD/Back/petshop_estoque/target/classes:/home/angel/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/angel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.class.path" value="/media/angel/DataHDD/Back/petshop_estoque/target/test-classes:/media/angel/DataHDD/Back/petshop_estoque/target/classes:/home/angel/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/angel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/angel/.m2/repository/org/mariadb/jdbc/mariadb-java-client/3.2.0/mariadb-java-client-3.2.0.jar:/home/angel/.m2/repository/com/github/waffle/waffle-jna/3.2.0/waffle-jna-3.2.0.jar:/home/angel/.m2/repository/net/java/dev/jna/jna/5.12.1/jna-5.12.1.jar:/home/angel/.m2/repository/net/java/dev/jna/jna-platform/5.12.1/jna-platform-5.12.1.jar:/home/angel/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.36/jcl-over-slf4j-1.7.36.jar:/home/angel/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/home/angel/.m2/repository/com/github/ben-manes/caffeine/caffeine/2.9.3/caffeine-2.9.3.jar:/home/angel/.m2/repository/com/google/errorprone/error_prone_annotations/2.10.0/error_prone_annotations-2.10.0.jar:/home/angel/.m2/repository/org/checkerframework/checker-qual/3.23.0/checker-qual-3.23.0.jar:"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
@@ -12,9 +12,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-21-oracle-x64/lib"/>
-    <property name="sun.java.command" value="/media/angel/DataHDD/Back/petshop_estoque/target/surefire/surefirebooter11188566648100549090.jar /media/angel/DataHDD/Back/petshop_estoque/target/surefire 2023-10-24T21-39-38_885-jvmRun1 surefire5449745702176321615tmp surefire_03271114045619399872tmp"/>
+    <property name="sun.java.command" value="/media/angel/DataHDD/Back/petshop_estoque/target/surefire/surefirebooter7417318861747783774.jar /media/angel/DataHDD/Back/petshop_estoque/target/surefire 2023-10-30T19-28-22_503-jvmRun1 surefire13592649042731002951tmp surefire_016949969137493986007tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/media/angel/DataHDD/Back/petshop_estoque/target/test-classes:/media/angel/DataHDD/Back/petshop_estoque/target/classes:/home/angel/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/angel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="surefire.test.class.path" value="/media/angel/DataHDD/Back/petshop_estoque/target/test-classes:/media/angel/DataHDD/Back/petshop_estoque/target/classes:/home/angel/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/angel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/angel/.m2/repository/org/mariadb/jdbc/mariadb-java-client/3.2.0/mariadb-java-client-3.2.0.jar:/home/angel/.m2/repository/com/github/waffle/waffle-jna/3.2.0/waffle-jna-3.2.0.jar:/home/angel/.m2/repository/net/java/dev/jna/jna/5.12.1/jna-5.12.1.jar:/home/angel/.m2/repository/net/java/dev/jna/jna-platform/5.12.1/jna-platform-5.12.1.jar:/home/angel/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.36/jcl-over-slf4j-1.7.36.jar:/home/angel/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/home/angel/.m2/repository/com/github/ben-manes/caffeine/caffeine/2.9.3/caffeine-2.9.3.jar:/home/angel/.m2/repository/com/google/errorprone/error_prone_annotations/2.10.0/error_prone_annotations-2.10.0.jar:/home/angel/.m2/repository/org/checkerframework/checker-qual/3.23.0/checker-qual-3.23.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/home/angel"/>
     <property name="user.language" value="en"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/media/angel/DataHDD/Back/petshop_estoque/target/surefire/surefirebooter11188566648100549090.jar"/>
+    <property name="surefire.real.class.path" value="/media/angel/DataHDD/Back/petshop_estoque/target/surefire/surefirebooter7417318861747783774.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.1+12-LTS-29"/>
     <property name="user.name" value="angel"/>
@@ -53,5 +53,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.mycompany.app.AppTest" time="0.004"/>
+  <testcase name="shouldAnswerWithTrue" classname="com.mycompany.app.AppTest" time="0.007"/>
 </testsuite>
