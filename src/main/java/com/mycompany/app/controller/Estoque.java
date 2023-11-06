@@ -4,10 +4,11 @@ import com.mycompany.app.database.Conector;
 import com.mycompany.app.model.Categoria;
 import com.mycompany.app.model.Produto;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Estoque extends Conector {
@@ -16,7 +17,7 @@ public class Estoque extends Conector {
     public void adicionarProduto() {
         try {
             PreparedStatement addProd = this.conn.prepareStatement(
-                    "insert into produtos (nome, quantidade, tipo, fornecedor, preco) values (?, ?, ?, ?, ?)");
+                    "insert into produtos (nome, quantidade, tipo, fornecedor, preco, dataValidade) values (?, ?, ?, ?, ?, ?)");
 
             System.out.print("Nome: ");
             addProd.setString(1, scanner.nextLine());
@@ -28,6 +29,8 @@ public class Estoque extends Conector {
             addProd.setString(4, scanner.nextLine());
             System.out.print("Preço: ");
             addProd.setFloat(5, Float.parseFloat((scanner.nextLine())));
+            System.out.println("Data de validade: (Informe a data no formato yyyy-MM-dd)");
+            addProd.setDate(6, Date.valueOf(scanner.nextLine()));
 
             int novoProd = addProd.executeUpdate();
             if (novoProd == 0) {
@@ -56,10 +59,11 @@ public class Estoque extends Conector {
                 produto.setTipo(prod.getInt("tipo"));
                 produto.setFornecedor(prod.getString("fornecedor"));
                 produto.setPreco(prod.getFloat("preco"));
+                produto.setDataValidade(prod.getDate("dataValidade"));
 
                 PreparedStatement editProd = this.conn.prepareStatement(
-                        "update produtos set nome = ?, quantidade = ?, tipo = ?, fornecedor = ?, preco = ? where id = ?");
-                editProd.setInt(6, id);
+                        "update produtos set nome = ?, quantidade = ?, tipo = ?, fornecedor = ?, preco = ?, datavalidade = ? where id = ?");
+                editProd.setInt(7, id);
 
                 System.out.println("Escolha uma opção:");
                 System.out.println("1 - Editar nome");
@@ -67,6 +71,7 @@ public class Estoque extends Conector {
                 System.out.println("3 - Editar tipo");
                 System.out.println("4 - Editar fornecedor");
                 System.out.println("5 - Editar preco");
+                System.out.println("6 - Editar data de validade");
                 System.out.print("Opção: ");
                 int escolha = Integer.parseInt(scanner.nextLine());
 
@@ -106,6 +111,14 @@ public class Estoque extends Conector {
                             produto.setPreco(preco);
                         }
                         break;
+                    case 6:
+                        System.out.print("Preço: ");
+                        System.out.println("Data de validade: (Informe a data no formato yyyy-MM-dd)");
+                        Date data = Date.valueOf(scanner.nextLine());
+                        if (data != null) {
+                            produto.setDataValidade(data);
+                        }
+                        break;
                 }
 
                 editProd.setString(1, produto.getNome());
@@ -113,6 +126,7 @@ public class Estoque extends Conector {
                 editProd.setInt(3, produto.getTipo().ordinal());
                 editProd.setString(4, produto.getFornecedor());
                 editProd.setFloat(5, produto.getPreco());
+                editProd.setDate(6, produto.getDataValidade());
 
                 int prodEditado = editProd.executeUpdate();
                 if (prodEditado == 0) {
@@ -137,9 +151,9 @@ public class Estoque extends Conector {
 
             if (prod.next()) {
                 System.out.printf(
-                        "\tid: %d\n\tProduto: %s\n\tQuantidade: %d,\n\tTipo: %s,\n\tFornecedor: %s,\n\tPreço: %.2f \n",
+                        "\tid: %d\n\tProduto: %s\n\tQuantidade: %d,\n\tTipo: %s,\n\tFornecedor: %s,\n\tPreço: %.2f \n\tData de validade: %tF\n",
                         prod.getInt("id"), prod.getString("nome"), prod.getInt("quantidade"), prod.getInt("tipo"),
-                        prod.getString("fornecedor"), prod.getFloat("preco"));
+                        prod.getString("fornecedor"), prod.getFloat("preco"), prod.getDate("dataValidade"));
             } else {
                 throw new SQLException("Produto não encontrado.");
             }
@@ -176,26 +190,31 @@ public class Estoque extends Conector {
         try {
             PreparedStatement listEstoque = this.conn.prepareStatement("SELECT * FROM produtos");
             var estoque = listEstoque.executeQuery();
-            var produtos = new ArrayList<Produto>();
 
             while (estoque.next()) {
 
-                Produto produto = new Produto();
-                produto.setId(estoque.getInt("id"));
-                produto.setNome(estoque.getString("nome"));
-                produto.setQuantidade(estoque.getInt("quantidade"));
-                produto.setTipo(estoque.getInt("tipo"));
-                produto.setFornecedor(estoque.getString("fornecedor"));
-                produto.setPreco(estoque.getFloat("preco"));
+                System.out.printf(
+                        "\tid: %d\n\tProduto: %s\n\tQuantidade: %d,\n\tTipo: %s,\n\tFornecedor: %s,\n\tPreço: %.2f \n\tData de validade: %tF\n\n",
+                        estoque.getInt("id"), estoque.getString("nome"), estoque.getInt("quantidade"),
+                        estoque.getInt("tipo"),
+                        estoque.getString("fornecedor"), estoque.getFloat("preco"), estoque.getDate("dataValidade"));
 
-                produtos.add(produto);
-
-                for (Produto prod : produtos) {
-                    System.out.println(prod);
-                }
+                verificarValidade(estoque.getDate("dataValidade"), estoque.getString("nome"));
             }
         } catch (SQLException e) {
             System.out.println("Ocorreu um erro na conexão: " + e.getMessage());
+        }
+
+    }
+
+    private void verificarValidade(Date dataValidade, String descricao) {
+        var limite = LocalDate.now().plusDays(10);
+        var data = dataValidade.toLocalDate();
+        var vencimento = data.getDayOfMonth() - LocalDate.now().getDayOfMonth();
+
+        if (data.isBefore(limite)) {
+            System.out.println(
+                    "O produto " + descricao + " vai vencer em " + (vencimento) + " dias.");
         }
 
     }

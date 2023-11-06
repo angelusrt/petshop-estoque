@@ -1,6 +1,6 @@
 package com.mycompany.app.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Produto {
     private int id;
@@ -9,13 +9,13 @@ public class Produto {
     private Categoria tipo;
     private String fornecedor;
     private Float preco;
-    private LocalDate dataValidade;
+    private Date dataValidade;
 
-    public LocalDate getDataValidade() {
+    public Date getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(LocalDate dataValidade) {
+    public void setDataValidade(Date dataValidade) {
         this.dataValidade = dataValidade;
     }
 
