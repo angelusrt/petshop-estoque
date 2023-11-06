@@ -27,17 +27,17 @@ public class App {
                         break;
                     case 2:
                         System.out.print("id: ");
-                        int id = in.nextInt() - 1;
+                        int id = in.nextInt();
                         estoque.editarProduto(id);
                         break;
                     case 3:
                         System.out.print("id: ");
-                        id = in.nextInt() - 1;
+                        id = in.nextInt();
                         estoque.verProduto(id);
                         break;
                     case 4:
                         System.out.print("id: ");
-                        id = in.nextInt() - 1;
+                        id = in.nextInt();
                         estoque.deletarProduto(id);
                         break;
                     case 5:
@@ -50,8 +50,8 @@ public class App {
                         break;
                 }
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

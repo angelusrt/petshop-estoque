@@ -1,4 +1,5 @@
-com/mycompany/app/App.class
-com/mycompany/app/controller/Estoque.class
-com/mycompany/app/model/Categoria.class
-com/mycompany/app/model/Produto.class
+com\mycompany\app\model\Categoria.class
+com\mycompany\app\model\Produto.class
+com\mycompany\app\App.class
+com\mycompany\app\database\Conector.class
+com\mycompany\app\controller\Estoque.class

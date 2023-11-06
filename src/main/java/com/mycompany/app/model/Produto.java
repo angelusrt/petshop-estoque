@@ -1,13 +1,27 @@
 package com.mycompany.app.model;
 
+import java.time.LocalDate;
+
 public class Produto {
     private int id;
     private String nome;
-    private int quantidade;
+    private Integer quantidade;
     private Categoria tipo;
     private String fornecedor;
-    private float preco;
-    private static int posicao = 0;
+    private Float preco;
+    private LocalDate dataValidade;
+
+    public LocalDate getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(LocalDate dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -17,7 +31,7 @@ public class Produto {
         this.nome = nome;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
@@ -29,8 +43,9 @@ public class Produto {
         return tipo;
     }
 
-    public void setTipo(Categoria tipo) {
-        this.tipo = tipo;
+    public void setTipo(int ordinal) {
+
+        this.tipo = Categoria.values()[ordinal];
     }
 
     public String getFornecedor() {
@@ -41,7 +56,7 @@ public class Produto {
         this.fornecedor = fornecedor;
     }
 
-    public float getPreco() {
+    public Float getPreco() {
         return preco;
     }
 
@@ -49,19 +64,10 @@ public class Produto {
         this.preco = preco;
     }
 
-    public Produto(String nome, int quant, Categoria tipo, String fornecedor, float preco) {
-        this.nome = nome;
-        this.quantidade = quant;
-        this.tipo = tipo;
-        this.fornecedor = fornecedor;
-        this.preco = preco;
-        posicao++;
-        this.id = posicao;
-    }
-
     @Override
     public String toString() {
-        return "[id: " + this.id + " nome: " + this.nome + ", tipo: " + this.tipo + " Fornecedor: " + this.fornecedor
+        return "[id: " + this.id + " nome: " + this.nome + ", tipo: " + this.tipo + ", Fornecedor: " + this.fornecedor
                 + ", preço: " + this.preco + " ]";
     }
+
 }
