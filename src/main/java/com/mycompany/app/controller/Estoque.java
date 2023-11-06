@@ -176,15 +176,14 @@ public class Estoque extends Conector {
         try {
             PreparedStatement listEstoque = this.conn.prepareStatement("SELECT * FROM produtos");
             var estoque = listEstoque.executeQuery();
+            var produtos = new ArrayList<Produto>();
 
             while (estoque.next()) {
 
                 Produto produto = new Produto();
-                var produtos = new ArrayList<Produto>();
                 produto.setId(estoque.getInt("id"));
                 produto.setNome(estoque.getString("nome"));
                 produto.setQuantidade(estoque.getInt("quantidade"));
-                var tipo = estoque.getInt("tipo");
                 produto.setTipo(estoque.getInt("tipo"));
                 produto.setFornecedor(estoque.getString("fornecedor"));
                 produto.setPreco(estoque.getFloat("preco"));
