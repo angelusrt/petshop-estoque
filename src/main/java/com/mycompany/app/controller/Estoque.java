@@ -4,9 +4,11 @@ import com.mycompany.app.database.Conector;
 import com.mycompany.app.model.Categoria;
 import com.mycompany.app.model.Produto;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -174,7 +176,7 @@ public class Estoque extends Conector {
 
     public void verEstoque() {
         try {
-            PreparedStatement listEstoque = this.conn.prepareStatement("SELECT * FROM produtos");
+            PreparedStatement listEstoque = this.conn.prepareStatement("SELECT * FROM produtos ORDER BY id");
             var estoque = listEstoque.executeQuery();
             var produtos = new ArrayList<Produto>();
 
@@ -190,9 +192,10 @@ public class Estoque extends Conector {
 
                 produtos.add(produto);
 
-                for (Produto prod : produtos) {
-                    System.out.println(prod);
-                }
+            }
+
+            for (Produto prod : produtos) {
+                System.out.println(prod);
             }
         } catch (SQLException e) {
             System.out.println("Ocorreu um erro na conexão: " + e.getMessage());
