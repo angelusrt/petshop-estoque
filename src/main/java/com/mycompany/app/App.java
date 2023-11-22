@@ -1,17 +1,14 @@
 package com.mycompany.app;
 
 import java.util.Scanner;
-import com.mycompany.app.controller.Estoque;
+
+import com.mycompany.app.controller.GerenciadorDeEstoque;
 
 public class App {
     public static void main(String[] args) throws Exception {
         try {
-            Scanner in = new Scanner(System.in);
-            Estoque estoque = new Estoque();
-            estoque.conectar();
-
-            boolean loop = true;
-            while (loop) {
+            boolean loopCondition = true;
+            while (loopCondition) {
                 System.out.println("Escolha uma opção:");
                 System.out.println("1 - Adicionar produto");
                 System.out.println("2 - Editar produto");
@@ -20,34 +17,37 @@ public class App {
                 System.out.println("5 - Ver estoque");
                 System.out.println("6 - Sair");
 
-                int escolha = in.nextInt();
-                switch (escolha) {
-                    case 1:
-                        estoque.adicionarProduto();
-                        break;
-                    case 2:
-                        System.out.print("id: ");
-                        int id = in.nextInt();
-                        estoque.editarProduto(id);
-                        break;
-                    case 3:
-                        System.out.print("id: ");
-                        id = in.nextInt();
-                        estoque.verProduto(id);
-                        break;
-                    case 4:
-                        System.out.print("id: ");
-                        id = in.nextInt();
-                        estoque.deletarProduto(id);
-                        break;
-                    case 5:
-                        estoque.verEstoque();
-                        break;
-                    case 6:
-                        loop = false;
-                        in.close();
-                        estoque.fechar();
-                        break;
+                try {
+                    Scanner in = new Scanner(System.in);
+
+                    var gerenciadorDeEstoque = new GerenciadorDeEstoque();
+
+                    int change = in.nextInt();
+                    switch (change) {
+                        case 1:
+                            gerenciadorDeEstoque.addProduto();
+                            break;
+                        case 2:
+                            System.out.print("id: ");
+                            gerenciadorDeEstoque.editarProduto(in.nextInt());
+                            break;
+                        case 3:
+                            System.out.print("id: ");
+                            gerenciadorDeEstoque.verProduto(in.nextInt());
+                            break;
+                        case 4:
+                            System.out.print("id: ");
+                            gerenciadorDeEstoque.deletarProduto(in.nextInt());
+                            break;
+                        case 5:
+                            gerenciadorDeEstoque.verEstoque();
+                            break;
+                        case 6:
+                            loopCondition = false;
+                            break;
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Escolha uma opção válida");
                 }
             }
         } catch (Exception e) {
